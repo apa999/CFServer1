@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		33941EFB2D7F3E6A00846663 /* _ConnectionPoolModule in Frameworks */ = {isa = PBXBuildFile; productRef = 33941EFA2D7F3E6A00846663 /* _ConnectionPoolModule */; };
+		33941EFD2D7F3E6A00846663 /* PostgresNIO in Frameworks */ = {isa = PBXBuildFile; productRef = 33941EFC2D7F3E6A00846663 /* PostgresNIO */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		33941EC92D7F3A9900846663 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +57,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33941EFD2D7F3E6A00846663 /* PostgresNIO in Frameworks */,
+				33941EFB2D7F3E6A00846663 /* _ConnectionPoolModule in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +85,7 @@
 				33941EB92D7F3A9800846663 /* CFServer */,
 				33941ECB2D7F3A9900846663 /* CFServerTests */,
 				33941ED52D7F3A9900846663 /* CFServerUITests */,
+				33941EF92D7F3E6A00846663 /* Frameworks */,
 				33941EB82D7F3A9800846663 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,6 +98,13 @@
 				33941ED22D7F3A9900846663 /* CFServerUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		33941EF92D7F3E6A00846663 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -112,6 +127,8 @@
 			);
 			name = CFServer;
 			packageProductDependencies = (
+				33941EFA2D7F3E6A00846663 /* _ConnectionPoolModule */,
+				33941EFC2D7F3E6A00846663 /* PostgresNIO */,
 			);
 			productName = CFServer;
 			productReference = 33941EB72D7F3A9800846663 /* CFServer.app */;
@@ -195,6 +212,9 @@
 			);
 			mainGroup = 33941EAE2D7F3A9700846663;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				33941EF82D7F3E4200846663 /* XCRemoteSwiftPackageReference "postgres-nio" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 33941EB82D7F3A9800846663 /* Products */;
 			projectDirPath = "";
@@ -549,6 +569,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		33941EF82D7F3E4200846663 /* XCRemoteSwiftPackageReference "postgres-nio" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/vapor/postgres-nio";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.25.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		33941EFA2D7F3E6A00846663 /* _ConnectionPoolModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 33941EF82D7F3E4200846663 /* XCRemoteSwiftPackageReference "postgres-nio" */;
+			productName = _ConnectionPoolModule;
+		};
+		33941EFC2D7F3E6A00846663 /* PostgresNIO */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 33941EF82D7F3E4200846663 /* XCRemoteSwiftPackageReference "postgres-nio" */;
+			productName = PostgresNIO;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 33941EAF2D7F3A9800846663 /* Project object */;
 }
