@@ -93,7 +93,7 @@ let Release1Str =
                         "legalName": "Marstons holdings plc"
                     },
                     "address": {
-                        "streetAddress": "Marstons holdings plc\nOne America Square, 17 Crosswall, London EC3N 2LB"
+                        "streetAddress": "Marstons holdings plc. One America Square, 17 Crosswall, London EC3N 2LB"
                     },
                     "details": {
                         "scale": "large",

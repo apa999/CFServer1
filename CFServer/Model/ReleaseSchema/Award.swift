@@ -63,6 +63,32 @@ struct Award: Codable {
     case title = "title"
     case value = "value"
   }
+  
+  init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    amendment = try container.decodeIfPresent(Amendment.self, forKey: .amendment)
+    amendments = try container.decodeIfPresent([Amendment].self, forKey: .amendments)
+    contractPeriod = try container.decodeIfPresent(Period.self, forKey: .contractPeriod)
+
+    description = try container.decodeIfPresent(String.self, forKey: .description)
+    documents = try container.decodeIfPresent([Document].self, forKey: .documents)
+    id = try container.decodeIfPresent(AwardIDUnion.self, forKey: .id) ?? AwardIDUnion.integer(0)
+    items = try container.decodeIfPresent([Item].self, forKey: .items)
+    status = try container.decodeIfPresent(AwardStatus.self, forKey: .status)
+    suppliers = try container.decodeIfPresent([OrganizationReference].self, forKey: .suppliers)
+    title = try container.decodeIfPresent(String.self, forKey: .title)
+    value = try container.decodeIfPresent(Value.self, forKey: .value)
+
+    if let dateString = try container.decodeIfPresent(String.self, forKey: .date) {
+      if let d = Helpers.dateFormatter.date(from: dateString) {
+        date = d
+      } else {
+        throw DecodingError.dataCorruptedError(forKey: .date,
+                                               in: container,
+                                               debugDescription: "Date string does not match expected format - date")
+      }
+    } else { date = nil }
+  }
 }
 
 // MARK: Award convenience initializers and mutators
@@ -81,36 +107,6 @@ extension Award {
   
   init(fromURL url: URL) throws {
     try self.init(data: try Data(contentsOf: url))
-  }
-  
-  func with(
-    amendment: Amendment?? = nil,
-    amendments: [Amendment]?? = nil,
-    contractPeriod: Period?? = nil,
-    date: Date?? = nil,
-    description: String?? = nil,
-    documents: [Document]?? = nil,
-    id: AwardIDUnion? = nil,
-    items: [Item]?? = nil,
-    status: AwardStatus?? = nil,
-    suppliers: [OrganizationReference]?? = nil,
-    title: String?? = nil,
-    value: Value?? = nil
-  ) -> Award {
-    return Award(
-      amendment: amendment ?? self.amendment,
-      amendments: amendments ?? self.amendments,
-      contractPeriod: contractPeriod ?? self.contractPeriod,
-      date: date ?? self.date,
-      description: description ?? self.description,
-      documents: documents ?? self.documents,
-      id: id ?? self.id,
-      items: items ?? self.items,
-      status: status ?? self.status,
-      suppliers: suppliers ?? self.suppliers,
-      title: title ?? self.title,
-      value: value ?? self.value
-    )
   }
   
   func jsonData() throws -> Data {

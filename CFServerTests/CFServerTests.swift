@@ -28,6 +28,12 @@ final class CFServerTests: XCTestCase {
     sut.parse(json: Release1Data)
   }
 
+  func testRel1Dates() throws {
+    let sut = CFServer()
+    sut.parseDates(json: Release1Data)
+  }
+  
+  
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
         self.measure {
