@@ -12,6 +12,7 @@ import NIOPosix
 
 class CFServer: ObservableObject {
   
+  var successfulParse = false
   
   //MARK:- Intentions
   func fetchData() {
@@ -54,7 +55,8 @@ extension CFServer {
   func parse(json: Data) {
     do {
       let release = try JSONDecoder().decode(Release.self, from: json)
-      print(release)
+      print("Parsed successfully: \(release.ocid)")
+      successfulParse = true
     } catch let DecodingError.keyNotFound(key, context) {
       print("Missing key: \(key.stringValue) in \(context.codingPath)")
     } catch let DecodingError.typeMismatch(type, context) {

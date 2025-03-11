@@ -26,19 +26,6 @@ final class CFServerTests: XCTestCase {
   func testRel1() throws {
     let sut = CFServer()
     sut.parse(json: Release1Data)
+    XCTAssertTrue(sut.successfulParse)
   }
-
-  func testRel1Dates() throws {
-    let sut = CFServer()
-    sut.parseDates(json: Release1Data)
-  }
-  
-  
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }
