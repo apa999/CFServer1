@@ -46,4 +46,15 @@ class CFServer: ObservableObject {
       print("Error: \(error)")
     }
   }
+  
+  
+  func parse(json: Data) {
+    do {
+      let release = try JSONDecoder().decode(Release.self, from: json)
+      print(release)
+    } catch {
+      print("Error: \(error)")
+    }
+    
+  }
 }
