@@ -30,29 +30,43 @@ import Foundation
 /// An identifier for this tender process. This may be the same as the ocid, or may be an
 /// internal identifier for this tender.
 enum AwardIDUnion: Codable {
-    case integer(Int)
-    case string(String)
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        if let x = try? container.decode(Int.self) {
-            self = .integer(x)
-            return
-        }
-        if let x = try? container.decode(String.self) {
-            self = .string(x)
-            return
-        }
-        throw DecodingError.typeMismatch(AwardIDUnion.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for AwardIDUnion"))
+  case integer(Int)
+  case string(String)
+  
+  init(from decoder: Decoder) throws {
+    let container = try decoder.singleValueContainer()
+    if let x = try? container.decode(Int.self) {
+      self = .integer(x)
+      return
     }
-
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        switch self {
-        case .integer(let x):
-            try container.encode(x)
-        case .string(let x):
-            try container.encode(x)
-        }
+    if let x = try? container.decode(String.self) {
+      self = .string(x)
+      return
     }
+    throw DecodingError.typeMismatch(AwardIDUnion.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for AwardIDUnion"))
+  }
+  
+  func encode(to encoder: Encoder) throws {
+    var container = encoder.singleValueContainer()
+    switch self {
+    case .integer(let x):
+      try container.encode(x)
+    case .string(let x):
+      try container.encode(x)
+    }
+  }
+}
+
+/**
+ Courtesy of ChatGPT
+ */
+extension AwardIDUnion {
+  var stringValue: String? {
+    switch self {
+    case .string(let value):
+      return value
+    case .integer(let value):
+      return String(value) // Convert integer to string
+    }
+  }
 }

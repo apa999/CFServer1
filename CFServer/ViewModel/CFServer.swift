@@ -12,7 +12,8 @@ import NIOPosix
 
 class CFServer: ObservableObject {
   
-  var successfulParse = false
+  var successfulParse  = false
+  var successfulInsert = false
   
   //MARK:- Intentions
   func fetchData() {
@@ -21,6 +22,59 @@ class CFServer: ObservableObject {
 }
 
 extension CFServer {
+  
+  func insertRelease(jsonData: Data) async {
+    let values: [PostgresData] = [PostgresData(jsonb: jsonData)]
+    do {
+      let connection = try await PostgresConnection.connect(on: group.next(),
+                                                            configuration: config,
+                                                            id: Int.random(in: 0...9999),
+                                                            logger: plogger).get()
+      
+      let query = "INSERT INTO releases (data) VALUES ($1)"
+      
+      let _ = try await connection.query(query, values).get()
+      
+      try await connection.close().get()
+      
+      successfulInsert = true
+    } catch let DecodingError.valueNotFound(type, context) {
+      print("Value not found for type: \(type) in \(context.codingPath)")
+    } catch let DecodingError.dataCorrupted(context) {
+      print("Corrupted data: \(context.debugDescription)")
+    } catch {
+      print("Error: \(error)")
+      print("Unknown error: \(error.localizedDescription)")
+    }
+  }
+  
+  func insertRelease(jsonStr: String) async {
+    do {
+      let jsonData = Data(jsonStr.utf8)
+      
+      let values: [PostgresData] = [PostgresData(jsonb: jsonData)]
+      
+      let connection = try await PostgresConnection.connect(on: group.next(),
+                                                            configuration: config,
+                                                            id: Int.random(in: 0...9999),
+                                                            logger: plogger).get()
+      
+      let query = "INSERT INTO releases (data) VALUES ($1)"
+      
+      let _ = try await connection.query(query, values).get()
+      
+      try await connection.close().get()
+      
+      successfulInsert = true
+    } catch let DecodingError.valueNotFound(type, context) {
+      print("Value not found for type: \(type) in \(context.codingPath)")
+    } catch let DecodingError.dataCorrupted(context) {
+      print("Corrupted data: \(context.debugDescription)")
+    } catch {
+      print("Error: \(error)")
+      print("Unknown error: \(error.localizedDescription)")
+    }
+  }
   
   func fetchTestData() {
     
@@ -46,8 +100,13 @@ extension CFServer {
     
     do {
       try queryFuture.wait() // Wait for operation to complete
+    } catch let DecodingError.valueNotFound(type, context) {
+      print("Value not found for type: \(type) in \(context.codingPath)")
+    } catch let DecodingError.dataCorrupted(context) {
+      print("Corrupted data: \(context.debugDescription)")
     } catch {
       print("Error: \(error)")
+      print("Unknown error: \(error.localizedDescription)")
     }
   }
   
@@ -99,7 +158,7 @@ extension CFServer {
       print("Error: \(error)")
       print("Unknown error: \(error.localizedDescription)")
     }
-   
+    
   }
   
   
