@@ -10,6 +10,17 @@ import XCTest
 
 final class TestBuildReleaseFromString: XCTestCase {
   
+  func testWRel1() throws {
+    do {
+      let sut = try Release(WRel1)
+      XCTAssertEqual(sut.ocid, "ocds-kuma6s-148440")
+      XCTAssertEqual(sut.id, "ocds-kuma6s-148440-release-148440")
+      XCTAssertEqual(sut.date, TestHelpers.convertStringToDate("2025-02-21T00:00:00Z"))
+    } catch {
+      failWithDetailedError(error)
+    }
+  }
+  
   func testRelease1Str() throws {
     do {
       let sut = try Release(Release1Str)
@@ -17,7 +28,7 @@ final class TestBuildReleaseFromString: XCTestCase {
       XCTAssertEqual(sut.id, "2a1e3359-87a0-4fdd-ac61-20d5e6520a13-819950")
       XCTAssertEqual(sut.date, TestHelpers.convertStringToDate("2025-01-23T22:10:19Z"))
     } catch {
-      XCTFail(error.localizedDescription)
+      failWithDetailedError(error)
     }
   }
   
@@ -41,7 +52,7 @@ final class TestBuildReleaseFromString: XCTestCase {
       XCTAssertEqual(tender?.description, "London borough of Merton require a Digital Engagement and Consultation tool.")
       XCTAssertEqual(tender?.status?.rawValue, "complete")
     } catch {
-      XCTFail(error.localizedDescription)
+      failWithDetailedError(error)
     }
   }
   
@@ -55,7 +66,7 @@ final class TestBuildReleaseFromString: XCTestCase {
       XCTAssertNotNil(items)
       XCTAssertEqual(items!.count, 1)
     } catch {
-      XCTFail(error.localizedDescription)
+      failWithDetailedError(error)
     }
   }
   
@@ -72,7 +83,7 @@ final class TestBuildReleaseFromString: XCTestCase {
       XCTAssertEqual(value!.currency!.stringValue, "GBP")
       
     } catch {
-      XCTFail(error.localizedDescription)
+      failWithDetailedError(error)
     }
   }
 }

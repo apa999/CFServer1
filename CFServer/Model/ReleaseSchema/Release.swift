@@ -87,8 +87,9 @@ struct Release: Codable {
     awards = try container.decodeIfPresent( [Award].self, forKey: .awards)
     buyer = try container.decodeIfPresent( OrganizationReference.self, forKey: .buyer)
     contracts = try container.decodeIfPresent( [Contract].self, forKey: .contracts)
+    id = try container.decodeIfPresent( String.self, forKey: .id) ?? UUID().uuidString
     
-    id = try container.decode( String.self, forKey: .id)
+    
     initiationType = try container.decode( InitiationType.self, forKey: .initiationType)
     language = try container.decodeIfPresent( String.self, forKey: .language)
     ocid = try container.decode( String.self, forKey: .ocid)

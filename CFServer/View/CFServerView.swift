@@ -18,10 +18,24 @@ struct CFServerView: View {
       Text("CFServerView")
         .font(.largeTitle)
       Spacer()
-      Button("Fetch data") {
-        cfServer.fetchData()
+      VStack {
+        HStack {
+          Spacer()
+          Button("Count releases") { cfServer.countReleases() }
+          Spacer()
+        }
+        
+        HStack {
+          Button("Fetch English") { cfServer.getEnglish() }
+          Spacer()
+          Button("Fetch Scotish") { cfServer.getScots() }
+          Spacer()
+          Button("Fetch Welsh") { cfServer.getWelsh() }
+          Spacer()
+          Button("Fetch Irish") { cfServer.getNorthernIrish() }
+          Spacer()
+        }
       }
-      Spacer()
     }
     .padding()
   }

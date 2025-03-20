@@ -35,6 +35,7 @@ extension CFSearch {
   
   var releasesAsData: [Data]? {
     let encoder = JSONEncoder()
+    encoder.dateEncodingStrategy = .iso8601 
     
     do {
       return try releases.map { try encoder.encode($0) }

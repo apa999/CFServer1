@@ -81,16 +81,24 @@ extension Period {
       }
     } else  { maxExtentDate = nil }
    
+    print("Checking start date")
+    
     if let dateString = try container.decodeIfPresent(String.self, forKey: .startDate) {
+      print("dateString: \(dateString)")
       if let date = Helpers.dateFormatter.date(from: dateString) {
+        print("date: \(date)")
         startDate = date
       } else {
+        print("Throwing...")
         throw DecodingError.dataCorruptedError(forKey: .startDate,
                                                in: container,
                                                debugDescription: "Date string does not match expected format - startDate")
       }
     }
-    else { startDate = nil }
+    else {
+      print("Start date is nil")
+      startDate = nil
+    }
   }
   
   init(data: Data) throws {

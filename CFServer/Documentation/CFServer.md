@@ -20,3 +20,23 @@ Failed: embedded quotes
 
 Release166.swift, Release173.swift, Release183.swift
 Failed: stray "rn" characters
+
+
+WRel3, WRel15, WRel19 and WRel28 - contain "rn" and unescaped '"'
+
+
+Scotland -API
+https://api.publiccontractsscotland.gov.uk/v1
+
+Scotish releases do not contain an id.
+
+>> According to the specification [https://standard.open-contracting.org/1.1/en/schema/release/], an "id" is
+An identifier for this particular release of information. 
+A release identifier must be unique within the scope of its related contracting process (defined by a common ocid). 
+A release identifier must not contain the # character.
+
+For the time-being, I will assign an UUID(). UUID's cannot contain '#' so it shouldn't be a problem.
+
+
+
+Find a Tender Service (FTS) (find-tender.service.gov.uk) lists higher-value tenders across the UK, including Northern Ireland.
