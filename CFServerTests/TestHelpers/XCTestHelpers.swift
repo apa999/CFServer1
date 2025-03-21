@@ -7,6 +7,10 @@
 
 import XCTest
 
+/**
+ ChatGPT
+ */
+
 func failWithDetailedError(_ error: Error, file: StaticString = #file, line: UInt = #line) {
     var errorMessage = """
     🛑 Test failed with error:
