@@ -52,6 +52,9 @@ func failWithDetailedError(_ error: Error, file: StaticString = #file, line: UIn
     XCTFail(errorMessage, file: file, line: line)
 }
 
+/**
+ ChatGPT
+ */
 func failWithDetailedError(_ error: Error, jsonData: Data? = nil, file: StaticString = #file, line: UInt = #line) {
     var errorMessage = """
     🛑 Test failed with error:
